@@ -4,6 +4,7 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import Balance from '../../components/Balance';
 import Movements from '../../components/Movements';
+import Actions from '../../components/Actions';
 
 const list = [
   {
@@ -37,6 +38,8 @@ const Home = () => {
       <Header userName={user.name} />
 
       <Balance balance="7.505,95" expenses="-490,00" />
+
+      <Actions />
 
       <Text style={styles.title}>Últimas movimentações</Text>
 
