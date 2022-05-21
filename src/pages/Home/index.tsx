@@ -2,14 +2,16 @@ import Header from '../../components/Header';
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
+import Balance from '../../components/Balance';
 
 const Home = () => {
   const {user} = React.useContext(AuthContext);
 
   return (
-    <ScrollView>
+    <View>
       <Header userName={user.name} />
-    </ScrollView>
+      <Balance balance="7.505,95" expenses="-490,00" />
+    </View>
   );
 };
 
