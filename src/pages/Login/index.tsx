@@ -6,11 +6,26 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamsList} from 'routes';
+import {NavigationProp} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+type LoginScreenProps = NavigationProp<RootStackParamsList, 'Home'>;
+
 const Login = () => {
+  const navigation = useNavigation<LoginScreenProps>();
   return (
     <View style={styles.container}>
+      <Text
+        style={{
+          fontSize: 22,
+          marginBottom: 20,
+          fontWeight: 'bold',
+          color: '#FF941A',
+        }}>
+        Seja bem vindo(a)!
+      </Text>
       <View style={styles.contentInput}>
         <Text style={styles.titleInput}>Nome</Text>
         <View style={styles.inputArea}>
@@ -32,7 +47,10 @@ const Login = () => {
           <TextInput style={{paddingLeft: 8, color: '#444'}} secureTextEntry />
         </View>
       </View>
-      <TouchableOpacity style={styles.buttonSignIn} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.buttonSignIn}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Home')}>
         <Text style={{color: '#fff', marginRight: 15, fontSize: 16}}>
           Sign-In
         </Text>
@@ -62,7 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   titleInput: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#444',
     marginBottom: 6,
   },
