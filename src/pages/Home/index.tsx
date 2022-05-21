@@ -3,6 +3,7 @@ import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import Balance from '../../components/Balance';
+import Movements from '../../components/Movements';
 
 const list = [
   {
@@ -44,7 +45,7 @@ const Home = () => {
         keyExtractor={item => String(item.id)}
         showsVerticalScrollIndicator={false}
         overScrollMode="never"
-        renderItem={({item}) => <Text>Oi</Text>}
+        renderItem={({item}) => <Movements data={item} />}
         style={styles.list}
       />
     </View>
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
     marginRight: 18,
     marginTop: 18,
     color: '#313030',
+    marginBottom: 18,
   },
   list: {
     marginStart: 18,
