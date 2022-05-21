@@ -18,7 +18,6 @@ const Login = () => {
 
   function handlerLogin() {
     signIn(name, email, password);
-    console.log(name, email, password);
   }
 
   return (
