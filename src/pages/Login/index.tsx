@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,15 +6,21 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackParamsList} from 'routes';
-import {NavigationProp} from '@react-navigation/native';
+import {AuthContext} from '../../contexts/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-type LoginScreenProps = NavigationProp<RootStackParamsList, 'Home'>;
-
 const Login = () => {
-  const navigation = useNavigation<LoginScreenProps>();
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const {signIn} = useContext(AuthContext);
+
+  function handlerLogin() {
+    signIn(name, email, password);
+    console.log(name, email, password);
+  }
+
   return (
     <View style={styles.container}>
       <Text
@@ -29,7 +35,12 @@ const Login = () => {
       <View style={styles.contentInput}>
         <Text style={styles.titleInput}>Nome</Text>
         <View style={styles.inputArea}>
-          <TextInput style={{paddingLeft: 8, color: '#444'}} maxLength={20} />
+          <TextInput
+            style={{paddingLeft: 8, color: '#444'}}
+            maxLength={20}
+            value={name}
+            onChangeText={text => setName(text)}
+          />
         </View>
       </View>
       <View style={styles.contentInput}>
@@ -38,19 +49,26 @@ const Login = () => {
           <TextInput
             style={{paddingLeft: 8, color: '#444'}}
             keyboardType={'email-address'}
+            value={email}
+            onChangeText={text => setEmail(text)}
           />
         </View>
       </View>
       <View style={styles.contentInput}>
-        <Text style={styles.titleInput}>Password</Text>
+        <Text style={styles.titleInput}>Senha</Text>
         <View style={styles.inputArea}>
-          <TextInput style={{paddingLeft: 8, color: '#444'}} secureTextEntry />
+          <TextInput
+            style={{paddingLeft: 8, color: '#444'}}
+            secureTextEntry
+            value={password}
+            onChangeText={text => setPassword(text)}
+          />
         </View>
       </View>
       <TouchableOpacity
         style={styles.buttonSignIn}
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('Home')}>
+        onPress={handlerLogin}>
         <Text style={{color: '#fff', marginRight: 15, fontSize: 16}}>
           Sign-In
         </Text>
