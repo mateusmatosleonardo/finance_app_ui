@@ -9,21 +9,25 @@ type SignInScreenProps = NavigationProp<RootStackParamsList, 'Home'>;
 
 const AuthProvider = ({children}: any) => {
   const [user, setUser] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
   const navigation = useNavigation<SignInScreenProps>();
 
   function signIn(name: string, email: string, password: string) {
+    setLoading(true);
     if (email !== '' && password !== '') {
       setUser({
         name: name,
         email: email,
         status: 'Ativo',
       });
-      navigation.navigate('Home');
+      setTimeout(() => {
+        navigation.navigate('Home');
+      }, 1500);
     }
   }
 
   return (
-    <AuthContext.Provider value={{signIn, user}}>
+    <AuthContext.Provider value={{signIn, user, loading}}>
       {children}
     </AuthContext.Provider>
   );

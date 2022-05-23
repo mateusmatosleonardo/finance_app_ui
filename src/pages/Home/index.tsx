@@ -37,7 +37,7 @@ const Home = () => {
     <View>
       <Header userName={user.name} />
 
-      <Balance balance="7.505,95" expenses="-490,00" />
+      <Balance balance="5.270,00" expenses="-130,00" />
 
       <Actions />
 

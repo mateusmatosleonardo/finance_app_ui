@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,7 +15,7 @@ const Login = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const {signIn} = useContext(AuthContext);
+  const {signIn, loading} = useContext(AuthContext);
 
   function handlerLogin() {
     signIn(name, email, password);
@@ -68,10 +69,16 @@ const Login = () => {
         style={styles.buttonSignIn}
         activeOpacity={0.8}
         onPress={handlerLogin}>
-        <Text style={{color: '#fff', marginRight: 15, fontSize: 16}}>
-          Sign-In
-        </Text>
-        <Icon name="sign-in" color="#fff" size={22} />
+        {loading ? (
+          <ActivityIndicator color={'#fafafa'} size="small" />
+        ) : (
+          <>
+            <Text style={{color: '#fff', marginRight: 15, fontSize: 16}}>
+              Sign-In
+            </Text>
+            <Icon name="sign-in" color="#fff" size={22} />
+          </>
+        )}
       </TouchableOpacity>
     </View>
   );
