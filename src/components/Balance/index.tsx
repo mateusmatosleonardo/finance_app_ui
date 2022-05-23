@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
   item: {},
   itemTitle: {
     fontSize: 20,
-    color: '#dadada',
+    color: '#ccc',
   },
   currencySimbol: {
-    color: '#dadada',
+    color: '#ccc',
     marginRight: 6,
     fontSize: 16,
   },

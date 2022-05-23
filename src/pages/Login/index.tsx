@@ -6,16 +6,18 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Brand from '../../assets/brand.png';
 
 const Login = () => {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const {signIn, loading} = useContext(AuthContext);
+  const {signIn, loading} = useContext(AuthContext) as any;
 
   function handlerLogin() {
     signIn(name, email, password);
@@ -23,15 +25,10 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          fontSize: 22,
-          marginBottom: 20,
-          fontWeight: 'bold',
-          color: '#FF941A',
-        }}>
-        Seja bem vindo(a)!
-      </Text>
+      <Image
+        source={Brand}
+        style={{width: 90, height: 108, marginBottom: 30}}
+      />
       <View style={styles.contentInput}>
         <Text style={styles.titleInput}>Nome</Text>
         <View style={styles.inputArea}>

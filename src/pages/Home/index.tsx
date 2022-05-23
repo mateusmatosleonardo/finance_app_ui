@@ -31,7 +31,7 @@ const list = [
 ];
 
 const Home = () => {
-  const {user} = React.useContext(AuthContext);
+  const {user} = React.useContext(AuthContext) as {user: any};
 
   return (
     <View>
