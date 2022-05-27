@@ -8,20 +8,43 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
 import {AuthContext} from '../../contexts/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Brand from '../../assets/brand.png';
+import {api} from '../../utils/api';
 
 const Login = () => {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({});
+
   const {signIn, loading} = useContext(AuthContext) as any;
 
+  // function handlerLogin() {
+  //   signIn(name, email, password);
+  // }
+
   function handlerLogin() {
-    signIn(name, email, password);
+    api
+      .post('/auth', {
+        email: email,
+        password: password,
+      })
+      .then(({data}) => {
+        console.log(data);
+      })
+      .catch(err => console.log(...err));
   }
+
+  console.log(email);
+  console.log(password);
 
   return (
     <View style={styles.container}>
@@ -31,46 +54,67 @@ const Login = () => {
       />
       <View style={styles.contentInput}>
         <Text style={styles.titleInput}>Nome</Text>
-        <View style={styles.inputArea}>
-          <TextInput
-            style={{paddingLeft: 8, color: '#444'}}
-            maxLength={20}
-            value={name}
-            onChangeText={text => setName(text)}
-          />
-        </View>
+        <Controller
+          control={control}
+          name="name"
+          render={({field: {onBlur, onChange, value}}) => (
+            <View style={styles.inputArea}>
+              <TextInput
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                style={{paddingLeft: 8, color: '#444'}}
+                maxLength={20}
+              />
+            </View>
+          )}
+        />
       </View>
       <View style={styles.contentInput}>
         <Text style={styles.titleInput}>E-mail</Text>
-        <View style={styles.inputArea}>
-          <TextInput
-            style={{paddingLeft: 8, color: '#444'}}
-            keyboardType={'email-address'}
-            value={email}
-            onChangeText={text => setEmail(text)}
-          />
-        </View>
+        <Controller
+          control={control}
+          name="email"
+          render={({field: {onBlur, onChange, value}}) => (
+            <View style={styles.inputArea}>
+              <TextInput
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                style={{paddingLeft: 8, color: '#444'}}
+                keyboardType={'email-address'}
+              />
+            </View>
+          )}
+        />
       </View>
       <View style={styles.contentInput}>
         <Text style={styles.titleInput}>Senha</Text>
-        <View style={styles.inputArea}>
-          <TextInput
-            style={{paddingLeft: 8, color: '#444'}}
-            secureTextEntry
-            value={password}
-            onChangeText={text => setPassword(text)}
-          />
-        </View>
+        <Controller
+          control={control}
+          name="password"
+          render={({field: {onBlur, onChange, value}}) => (
+            <View style={styles.inputArea}>
+              <TextInput
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                style={{paddingLeft: 8, color: '#444'}}
+                secureTextEntry
+              />
+            </View>
+          )}
+        />
       </View>
       <TouchableOpacity
         style={styles.buttonSignIn}
         activeOpacity={0.8}
-        onPress={handlerLogin}>
+        onPress={handleSubmit(handlerLogin)}>
         {loading ? (
           <ActivityIndicator color={'#fafafa'} size="small" />
         ) : (
           <>
-            <Text style={{color: '#fff', marginRight: 15, fontSize: 16}}>
+            <Text style={{color: '#fafafa', marginRight: 15, fontSize: 16}}>
               Sign-In
             </Text>
             <Icon name="sign-in" color="#fff" size={22} />
