@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,42 +9,57 @@ import {
   Image,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {AuthContext} from '../../contexts/auth';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp} from '@react-navigation/native';
+import {RootStackParamsList} from 'routes';
+import {api} from '../../utils/api';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Brand from '../../assets/brand.png';
-import {api} from '../../utils/api';
+
+const schema = yup.object({
+  username: yup.string().required('Informe seu nome de usuário'),
+  email: yup
+    .string()
+    .email('Informe um e-mail válido')
+    .required('Informe seu e-mail'),
+  password: yup
+    .string()
+    .min(8, 'A senha deve ter no mínimo 8 caracteres')
+    .required('Informe sua senha'),
+});
+
+type SignInScreenProps = NavigationProp<RootStackParamsList, 'Home'>;
 
 const Login = () => {
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigation = useNavigation<SignInScreenProps>();
 
   const {
     control,
     handleSubmit,
     formState: {errors},
-  } = useForm({});
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const {signIn, loading} = useContext(AuthContext) as any;
-
-  // function handlerLogin() {
-  //   signIn(name, email, password);
-  // }
-
-  function handlerLogin() {
+  function handlerLogin(user: {email: string; password: string}) {
+    setLoading(true);
     api
       .post('/auth', {
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       })
-      .then(({data}) => {
-        console.log(data);
+      .then(({data}: any) => {
+        setTimeout(() => {
+          navigation.navigate('Home');
+          setLoading(false);
+        }, 1000);
+        console.log(data?.token);
       })
       .catch(err => console.log(...err));
   }
-
-  console.log(email);
-  console.log(password);
 
   return (
     <View style={styles.container}>

@@ -27,7 +27,7 @@ const AuthProvider = ({children}: any) => {
   }
 
   return (
-    <AuthContext.Provider value={{signIn, user, loading}}>
+    <AuthContext.Provider value={{signIn, user, loading, setLoading}}>
       {children}
     </AuthContext.Provider>
   );
