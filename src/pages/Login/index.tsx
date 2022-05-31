@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React from 'react';
 import {
   View,
   StyleSheet,
@@ -19,7 +19,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Brand from '../../assets/brand.png';
 
 const schema = yup.object({
-  username: yup.string().required('Informe seu nome de usuário'),
   email: yup
     .string()
     .email('Informe um e-mail válido')
@@ -33,7 +32,7 @@ const schema = yup.object({
 type SignInScreenProps = NavigationProp<RootStackParamsList, 'Home'>;
 
 const Login = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
   const navigation = useNavigation<SignInScreenProps>();
 
   const {
@@ -84,6 +83,10 @@ const Login = () => {
             </View>
           )}
         />
+        <View style={{height: 16}} />
+        {/* {errors.username && (
+          <Text style={styles.labelError}>{errors.username?.message}</Text>
+        )} */}
       </View>
       <View style={styles.contentInput}>
         <Text style={styles.titleInput}>E-mail</Text>
@@ -91,7 +94,14 @@ const Login = () => {
           control={control}
           name="email"
           render={({field: {onBlur, onChange, value}}) => (
-            <View style={styles.inputArea}>
+            <View
+              style={[
+                styles.inputArea,
+                {
+                  borderWidth: errors.email && 1,
+                  borderColor: errors.email && '#ff375b',
+                },
+              ]}>
               <TextInput
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -102,6 +112,11 @@ const Login = () => {
             </View>
           )}
         />
+        <View style={{height: 16}}>
+          {errors.email && (
+            <Text style={styles.labelError}>{errors.email?.message}</Text>
+          )}
+        </View>
       </View>
       <View style={styles.contentInput}>
         <Text style={styles.titleInput}>Senha</Text>
@@ -109,7 +124,14 @@ const Login = () => {
           control={control}
           name="password"
           render={({field: {onBlur, onChange, value}}) => (
-            <View style={styles.inputArea}>
+            <View
+              style={[
+                styles.inputArea,
+                {
+                  borderWidth: errors.password && 1,
+                  borderColor: errors.password && '#ff375b',
+                },
+              ]}>
               <TextInput
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -120,11 +142,16 @@ const Login = () => {
             </View>
           )}
         />
+        <View style={{height: 16}}>
+          {errors.password && (
+            <Text style={styles.labelError}>{errors.password?.message}</Text>
+          )}
+        </View>
       </View>
       <TouchableOpacity
         style={styles.buttonSignIn}
         activeOpacity={0.8}
-        onPress={handleSubmit(handlerLogin)}>
+        onPress={handleSubmit(handlerLogin as any)}>
         {loading ? (
           <ActivityIndicator color={'#fafafa'} size="small" />
         ) : (
@@ -173,6 +200,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  labelError: {
+    fontSize: 12,
+    color: '#ff375b',
   },
 });
 

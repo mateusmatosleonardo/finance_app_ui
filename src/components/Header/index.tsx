@@ -21,7 +21,15 @@ const Header = ({userName}: HeaderProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.username}>{userName}</Text>
+        <View style={{justifyContent: 'flex-start', alignItems: 'flex-start'}}>
+          <View style={styles.contentMsgUser}>
+            <Text style={styles.msgUser}>Olá, </Text>
+            <Text style={styles.username}>{userName}</Text>
+          </View>
+          <Text style={{fontFamily: theme.fonts.Regular, color: '#fafafa'}}>
+            Mantenha suas contas em dia!
+          </Text>
+        </View>
         <TouchableOpacity activeOpacity={0.9} style={styles.buttonUser}>
           <Icon name="user" size={27} color="#fafafa" />
         </TouchableOpacity>
@@ -37,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingStart: 16,
     paddingEnd: 16,
-    paddingBottom: 44,
+    paddingBottom: 70,
   },
   content: {
     flex: 1,
@@ -47,8 +55,8 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fafafa',
+    fontFamily: theme.fonts.SemiBold,
+    color: '#ffffff',
   },
   buttonUser: {
     width: 44,
@@ -57,6 +65,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  contentMsgUser: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  msgUser: {
+    fontSize: 18,
+    fontFamily: theme.fonts.Regular,
+    color: '#fafafa',
   },
 });
 

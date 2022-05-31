@@ -35,7 +35,7 @@ const Home = () => {
 
   return (
     <View>
-      <Header userName={user.name} />
+      <Header userName={user.name ? user.name : 'Mateus'} />
 
       <Balance balance="5.270,00" expenses="-130,00" />
 

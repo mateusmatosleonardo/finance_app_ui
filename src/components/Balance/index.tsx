@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {theme} from '../../theme/theme';
 
 interface BalanceProps {
   balance: string;
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingBottom: 18,
     paddingTop: 18,
-    backgroundColor: '#fafafa',
+    backgroundColor: theme.colors.brandSecondary,
     elevation: 1,
     zIndex: 99,
   },
