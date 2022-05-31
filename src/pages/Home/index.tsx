@@ -2,9 +2,9 @@ import Header from '../../components/Header';
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {AuthContext} from '../../contexts/auth';
-import Balance from '../../components/Balance';
 import Movements from '../../components/Movements';
-import Actions from '../../components/Actions';
+import Registered from '../../components/Registered';
+import {theme} from '../../theme/theme';
 
 const list = [
   {
@@ -37,11 +37,11 @@ const Home = () => {
     <View>
       <Header userName={user.name ? user.name : 'Mateus'} />
 
-      <Balance balance="5.270,00" expenses="-130,00" />
+      <Registered numberOfTickets={5} />
 
-      <Actions />
+      <Text style={styles.title}>Meus boletos</Text>
 
-      <Text style={styles.title}>Últimas movimentações</Text>
+      <View style={styles.diviser} />
 
       <FlatList
         data={list}
@@ -61,13 +61,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 18,
     marginRight: 18,
-    marginTop: 18,
-    color: '#313030',
-    marginBottom: 18,
+    marginTop: 24,
+    color: theme.colors.brandSecondary,
+    marginBottom: 24,
   },
   list: {
     marginStart: 18,
     marginEnd: 18,
+  },
+  diviser: {
+    height: 1,
+    marginStart: 18,
+    marginEnd: 18,
+    marginBottom: 24,
+    backgroundColor: '#dedede',
   },
 });
 
