@@ -9,30 +9,25 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {AuthContext} from '../../contexts/auth';
+import Trash from 'react-native-vector-icons/Feather';
 import Bills from '../../components/Bills';
 import Registered from '../../components/Registered';
 import {theme} from '../../theme/theme';
+import Button from '../../components/Button';
 
 const list = [
   {
     id: 1,
     nameOfBills: 'Nubank',
-    value: '130,00',
-    dueDate: '25/05/2022',
+    value: '232,63',
+    dueDate: '25/06/2022',
     type: 0,
   },
   {
     id: 2,
-    nameOfBills: 'Pix cliente x',
-    value: '1.900,00',
-    dueDate: '18/05/2022',
-    type: 1,
-  },
-  {
-    id: 3,
-    nameOfBills: 'Salário',
-    value: '3.500,00',
-    dueDate: '30/04/2022',
+    nameOfBills: 'Enpréstimo Nubank',
+    value: '129,54',
+    dueDate: '06/06/2022',
     type: 1,
   },
 ];
@@ -69,7 +64,7 @@ const Home = () => {
           style={styles.list}
         />
       </View>
-      <Modal transparent animationType="slide" visible={modalVisible}>
+      <Modal transparent animationType="fade" visible={modalVisible}>
         <View
           style={{
             flex: 1,
@@ -78,10 +73,6 @@ const Home = () => {
             backgroundColor: 'rgba(0, 0, 0, 0.4)',
           }}>
           <View style={styles.modal}>
-            <TouchableOpacity
-              style={{width: 30, height: 30, backgroundColor: 'red'}}
-              onPress={() => setModalVisible(false)}
-            />
             <View style={styles.handlerModal} />
             <View style={[styles.contentText, {marginTop: 24}]}>
               <Text style={styles.textModal}>O boleto </Text>
@@ -113,6 +104,74 @@ const Home = () => {
               }}>
               foi pago?
             </Text>
+            <View style={styles.containerButtons}>
+              <Button
+                action={() => setModalVisible(false)}
+                style={{
+                  width: 150,
+                  height: 55,
+                  borderRadius: 4,
+                  backgroundColor: '#eeeeee',
+                  borderWidth: 1,
+                  borderColor: '#ccc',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontFamily: theme.fonts.Regular,
+                    color: theme.colors.brandSecondary,
+                  }}>
+                  Ainda não
+                </Text>
+              </Button>
+              <Button
+                style={{
+                  width: 150,
+                  height: 55,
+                  borderRadius: 4,
+                  backgroundColor: theme.colors.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontFamily: theme.fonts.Regular,
+                    color: '#fafafa',
+                  }}>
+                  Sim
+                </Text>
+              </Button>
+            </View>
+            <View
+              style={{
+                width: '100%',
+                height: 1,
+                backgroundColor: '#ccc',
+              }}
+            />
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={{
+                paddingVertical: 20,
+                paddingHorizontal: 10,
+                justifyContent: 'center',
+                flexDirection: 'row',
+              }}>
+              <Trash
+                name="trash-2"
+                color="#f00"
+                size={22}
+                style={{marginRight: 10}}
+              />
+              <Text
+                style={{
+                  fontFamily: theme.fonts.Regular,
+                  color: '#f00',
+                }}>
+                Deletar boleto?
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -152,7 +211,6 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: '100%',
-    height: 300,
     alignItems: 'center',
     backgroundColor: '#fafafa',
   },
@@ -167,6 +225,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  containerButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 40,
+    marginTop: 20,
+    marginBottom: 30,
   },
 });
 

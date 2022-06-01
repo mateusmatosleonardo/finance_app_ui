@@ -11,9 +11,7 @@ const Bills = ({data, openModal}: any) => {
         onPress={openModal}>
         <View style={styles.content}>
           <Text style={styles.nameOfBills}>{data.nameOfBills}</Text>
-          <Text style={data.type === 1 ? styles.value : styles.expenses}>
-            R$ {data.value}
-          </Text>
+          <Text style={styles.value}>R$ {data.value}</Text>
         </View>
         <Text style={styles.dueDate}>vence em {data.dueDate}</Text>
       </TouchableOpacity>
@@ -43,15 +41,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   value: {
+    fontFamily: theme.fonts.SemiBold,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#2ecc71',
+    color: theme.colors.brandSecondary,
   },
-  expenses: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#e74c3c',
-  },
+
   skeleton: {
     width: 80,
     height: 14,
