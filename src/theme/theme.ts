@@ -1,7 +1,7 @@
 export const theme = {
   name: 'DefaultTheme',
   colors: {
-    primary: '#229662',
+    primary: '#249962',
     brandSecondary: '#585666',
     secondary300: '#F7CBA5',
     overlay: 'rgba(0,0,0,0.7)',

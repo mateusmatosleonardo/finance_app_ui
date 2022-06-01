@@ -7,6 +7,7 @@ import {
   View,
   Modal,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import Trash from 'react-native-vector-icons/Feather';
@@ -33,6 +34,7 @@ const list = [
 ];
 
 const Home = () => {
+  const [loading, setLoading] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalItem, setModalItem] = React.useState<any>({});
   const {user} = React.useContext(AuthContext) as {user: any};
@@ -53,16 +55,20 @@ const Home = () => {
 
         <View style={styles.diviser} />
 
-        <FlatList
-          data={list}
-          keyExtractor={item => String(item.id)}
-          showsVerticalScrollIndicator={false}
-          overScrollMode="never"
-          renderItem={({item}) => (
-            <Bills data={item} openModal={() => openModal(item)} />
-          )}
-          style={styles.list}
-        />
+        {loading ? (
+          <ActivityIndicator color="#249962" size={'large'} />
+        ) : (
+          <FlatList
+            data={list}
+            keyExtractor={item => String(item.id)}
+            showsVerticalScrollIndicator={false}
+            overScrollMode="never"
+            renderItem={({item}) => (
+              <Bills data={item} openModal={() => openModal(item)} />
+            )}
+            style={styles.list}
+          />
+        )}
       </View>
       <Modal transparent animationType="fade" visible={modalVisible}>
         <View
