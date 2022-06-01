@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingStart: 18,
     paddingEnd: 18,
-    marginTop: -46,
+    marginTop: -42,
     marginStart: 18,
     marginEnd: 18,
     borderRadius: 4,
