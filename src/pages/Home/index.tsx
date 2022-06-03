@@ -8,6 +8,7 @@ import {
   Modal,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {AuthContext} from '../../contexts/auth';
 import Trash from 'react-native-vector-icons/Feather';
@@ -42,6 +43,11 @@ const Home = () => {
   function openModal(item: any) {
     setModalVisible(true);
     setModalItem(item);
+  }
+
+  function deleteBill() {
+    setModalVisible(false);
+    Alert.alert('Boleto deletado com sucesso!');
   }
 
   return (
@@ -157,6 +163,7 @@ const Home = () => {
               }}
             />
             <TouchableOpacity
+              onPress={() => deleteBill()}
               activeOpacity={0.7}
               style={{
                 paddingVertical: 20,
